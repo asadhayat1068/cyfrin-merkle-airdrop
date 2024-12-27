@@ -9,6 +9,8 @@ out/
 
 # Docs
 docs/
+lib/*
+zkout/
 
 # Dotenv file
 .env
