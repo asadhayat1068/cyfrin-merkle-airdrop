@@ -7,8 +7,7 @@ import {BagelToken} from "src/BagelToken.sol";
 import {ZkSyncChainChecker} from "foundry-devops/src/ZKSyncChainChecker.sol";
 import {DeployMerkleAirdrop} from "script/DeployMerkleAirDrop.s.sol";
 
-
-contract MerkleAirdropTest is ZkSyncChainChecker,Test {
+contract MerkleAirdropTest is ZkSyncChainChecker, Test {
     MerkleAirdrop airdrop;
     BagelToken token;
 
@@ -17,14 +16,14 @@ contract MerkleAirdropTest is ZkSyncChainChecker,Test {
     address public gasPayer;
     uint256 public userPrivKey;
     uint256 public AMOUNT_TO_CLAIM = 25e18;
-    uint256 public AMOUNT_TO_SEND = 4*AMOUNT_TO_CLAIM;
+    uint256 public AMOUNT_TO_SEND = 4 * AMOUNT_TO_CLAIM;
     bytes32[] public PROOF = [
         bytes32(0x0fd7c981d39bece61f7499702bf59b3114a90e66b51ba2c53abdf7b62986c00a),
         bytes32(0xe5ebd1e1b5a5478a944ecab36a9a954ac3b6b8216875f6524caa7a1d87096576)
     ];
 
     function setUp() public {
-        if(!isZkSyncChain()) {
+        if (!isZkSyncChain()) {
             DeployMerkleAirdrop deployer = new DeployMerkleAirdrop();
             (airdrop, token) = deployer.deployMerkleAirdrop();
         } else {
@@ -49,6 +48,5 @@ contract MerkleAirdropTest is ZkSyncChainChecker,Test {
         assertEq(endingBalance - startingBalance, AMOUNT_TO_CLAIM);
         uint256 remainingBalance = token.balanceOf(address(airdrop));
         assertEq(remainingBalance, AMOUNT_TO_SEND - AMOUNT_TO_CLAIM);
-
     }
 }
